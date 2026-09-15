@@ -1,0 +1,21 @@
+<style>
+        /* ==========================================================================
+           1. NATIVE CSS VARIABLES & RESET
+           ========================================================================== */
+        :root {
+            --bg-dark: #0f1117;
+            --bg-card: #181b24;
+            --bg-card-hover: #222634;
+            --accent-red: #ff2a5f;
+            --accent-red-glow: rgba(255, 42, 95, 0.4);
+            --accent-gold: #ffb800;
+            --accent-cyan: #00f0ff;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-code: 'Fira Code', monospace;
+            --transition-fast: 0.25s ease;
+            --transition-bounce: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }

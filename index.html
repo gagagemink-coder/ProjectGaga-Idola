@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windah Basudara - Official Portfolio & Documentation Hub</title>
+    <!-- Font Awesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Plus+Jakarta+Sans:wght@400;500;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+        /* ==========================================================================
+           1. NATIVE CSS VARIABLES & RESET
+           ========================================================================== */
+        :root {
+            --bg-dark: #0f1117;
+            --bg-card: #181b24;
+            --bg-card-hover: #222634;
+            --accent-red: #ff2a5f;
+            --accent-red-glow: rgba(255, 42, 95, 0.4);
+            --accent-gold: #ffb800;
+            --accent-cyan: #00f0ff;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-code: 'Fira Code', monospace;
+            --transition-fast: 0.25s ease;
+            --transition-bounce: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d3245;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-red);
+        }
+
+        /* ==========================================================================
+           2. TYPOGRAPHY & COMMON REUSABLE CLASSES
+           ========================================================================== */
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fff 30%, var(--accent-red) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-size: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.75rem 1.75rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border: none;
+            outline: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-red), #d60036);
+            color: #fff;
+            box-shadow: 0 4px 20px var(--accent-red-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px var(--accent-red-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+            transform: translateY(-3px);
+        }
+
+        .badge {
+            background: rgba(255, 42, 95, 0.15);
+            color: var(--accent-red);
+            border: 1px solid rgba(255, 42, 95, 0.3);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ==========================================================================
+           3. NAVBAR & HEADER
+           ========================================================================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 17, 23, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition-fast);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 75px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-main);
+            font-family: var(--font-heading);
+            font-weight: 900;
+            font-size: 1.3rem;
+        }
+
+        .brand-logo i {
+            color: var(--accent-red);
+            font-size: 1.6rem;
+            filter: drop-shadow(0 0 8px var(--accent-red));
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition-fast);
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-red);
+            background: rgba(255, 42, 95, 0.08);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ==========================================================================
+           4. HERO SECTION
+           ========================================================================== */
+        .hero {
+            padding-top: 130px;
+            padding-bottom: 80px;
+            position: relative;
+            background: radial-gradient(circle at 80% 20%, rgba(255, 42, 95, 0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 20% 80%, rgba(0, 240, 255, 0.08) 0%, transparent 50%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin: 1rem 0;
+        }
+
+        .hero-text h1 span {
+            color: var(--accent-red);
+            text-shadow: 0 0 20px var(--accent-red-glow);
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 580px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+        }
+
+        .stat-card h3 {
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+        }
+
+        .stat-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .hero-avatar-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-avatar-card {
+            width: 100%;
+            max-width: 360px;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-avatar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent-red), var(--accent-gold), var(--accent-cyan));
+        }
+
+        .avatar-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-red);
+            margin: 0 auto 1.2rem auto;
+            box-shadow: 0 0 25px var(--accent-red-glow);
+            background: #252a3a;
+        }
+
+        .hero-avatar-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .hero-avatar-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .live-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 42, 95, 0.2);
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .live-pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-red);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-red);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.5; }
+            100% { transform: scale(0.95); opacity: 1; }
+        }
+
+        /* ==========================================================================
+           5. ABOUT / BIOGRAPHY SECTION
+           ========================================================================== */
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition-fast);
+        }
+
+        .about-box:hover {
+            border-color: var(--accent-red);
+            transform: translateY(-4px);
+        }
+
+        .about-box h3 {
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 1.2rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 1.5rem;
+            border-left: 2px solid var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.95rem;
+            top: 0.3rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-red);
+            box-shadow: 0 0 10px var(--accent-red);
+        }
+
+        .timeline-year {
+            font-weight: 800;
+            color: var(--accent-cyan);
+            font-size: 0.9rem;
+        }
+
+        .timeline-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .timeline-desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================================
+           6. STREAMING CONTENT & GAME HIGHLIGHTS
+           ========================================================================== */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .game-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: var(--transition-bounce);
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-red);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .game-thumb {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: #252a3a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            position: relative;
+        }
+
+        .game-thumb-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .game-overlay {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            padding: 0.3rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .game-content {
+            padding: 1.25rem;
+        }
+
+        .game-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .game-content p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        /* ==========================================================================
+           7. INTERACTIVE FAN ZONE & SOUNDBOARD
+           ========================================================================== */
+        .fanzone-container {
+            background: linear-gradient(135deg, rgba(24, 27, 36, 0.9), rgba(15, 17, 23, 0.95));
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        .soundboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .sound-btn {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1rem;
+            color: var(--text-main);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .sound-btn:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 240, 255, 0.1);
+            transform: scale(1.03);
+        }
+
+        .sound-btn i {
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+        }
+
+        .counter-box {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 42, 95, 0.05);
+            border: 1px dashed var(--accent-red);
+            border-radius: 16px;
+        }
+
+        .counter-number {
+            font-size: 3rem;
+            font-family: var(--font-heading);
+            font-weight: 900;
+            color: var(--accent-red);
+            margin: 0.5rem 0;
+        }
+
+        /* ==========================================================================
+           8. DOCUMENTATION SECTION (TUGAS INFORMATIKA & GIT/GITHUB)
+           ========================================================================== */
+        .doc-section {
+            background: #12141c;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .notebook-wrapper {
+            background: #181b24;
+            border: 2px solid var(--accent-gold);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            position: relative;
+        }
+
+        .notebook-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1.2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .notebook-title {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+        }
+
+        .doc-nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .doc-tab {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.6rem 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: var(--transition-fast);
+        }
+
+        .doc-tab.active, .doc-tab:hover {
+            background: var(--accent-red);
+            color: #fff;
+            border-color: var(--accent-red);
+        }
+
+        .doc-content-pane {
+            display: none;
+        }
+
+        .doc-content-pane.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Notebook Entry Typography */
+        .entry-title {
+            color: var(--accent-cyan);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .entry-body p {
+            margin-bottom: 1rem;
+            color: #d1d5db;
+        }
+
+        .entry-body ul, .entry-body ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #d1d5db;
+        }
+
+        .entry-body li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Terminal Mockup */
+        .terminal-box {
+            background: #090a0f;
+            border-radius: 12px;
+            border: 1px solid #2d3245;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            font-family: var(--font-code);
+        }
+
+        .terminal-header {
+            background: #1f2330;
+            padding: 0.6rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-title {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            margin-left: auto;
+        }
+
+        .terminal-body {
+            padding: 1.2rem;
+            color: #a9b1d6;
+            font-size: 0.88rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .terminal-cmd {
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+
+        .terminal-comment {
+            color: #565f89;
+            font-style: italic;
+        }
+
+        .tree-view {
+            background: #090a0f;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.2rem;
+            font-family: var(--font-code);
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+
+        /* Copy Button inside Terminal */
+        .copy-btn {
+            float: right;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+        .copy-btn:hover {
+            background: var(--accent-red);
+        }
+
+        /* ==========================================================================
+           9. FOOTER
+           ========================================================================== */
+        footer {
+            background: #08090d;
+            padding: 50px 0 30px 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        .social-icon:hover {
+            background: var(--accent-red);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--accent-red-glow);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Notification Toast */
+        .toast {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: var(--accent-cyan);
+            color: #000;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(0,240,255,0.4);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition-bounce);
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ==========================================================================
+           10. RESPONSIVE DESIGN (MEDIA QUERIES)
+           ========================================================================== */
+        @media (max-width: 992px) {
+            .hero-grid, .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            .hero-avatar-wrapper {
+                margin-top: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 75px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 75px);
+                background: var(--bg-dark);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 2rem;
+                transition: var(--transition-fast);
+                border-top: 1px solid var(--border-color);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .notebook-wrapper {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#beranda" class="brand-logo">
+                <i class="fa-solid fa-gamepad"></i>
+                <span>WINDAH BASUDARA</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#beranda" class="nav-link active">Beranda</a></li>
+                <li><a href="#profil" class="nav-link">Profil Idola</a></li>
+                <li><a href="#konten" class="nav-link">Game & Stream</a></li>
+                <li><a href="#fanzone" class="nav-link">Fan Zone</a></li>
+                <li><a href="#dokumentasi" class="nav-link" style="color: var(--accent-gold);"><i class="fa-solid fa-book"></i> Catatan Tugas Git</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="beranda" class="hero">
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <span class="badge"><i class="fa-solid fa-fire"></i> Indonesian Gaming Creator</span>
+                <h1>Halo Guys! Kembali Lagi Sama <span>Windah Basudara</span></h1>
+                <p class="hero-description">
+                    Selamat datang di website portofolio interaktif Brando Windah (Windah Basudara) — Raja Streaming Game, Penggalang Dana Kemanusiaan, dan Pemimpin Tertinggi Bocil Kematian!
+                </p>
+                <div class="hero-btns">
+                    <a href="#dokumentasi" class="btn btn-primary">
+                        <i class="fa-solid fa-file-code"></i> Buka Buku Catatan Tugas
+                    </a>
+                    <a href="https://www.youtube.com/@WindahBasudara" target="_blank" class="btn btn-outline">
+                        <i class="fa-brands fa-youtube"></i> Visit YouTube Channel
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <h3 id="subCounter">13.8M+</h3>
+                        <p>Subscribers</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Rp 1M+</h3>
+                        <p>Total Charity Raised</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>1000+</h3>
+                        <p>Games Played</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-avatar-wrapper">
+                <div class="hero-avatar-card">
+                    <img src="Assets/img/foto%20provil%20windah.jpg" alt="Windah Basudara Avatar" class="avatar-img" id="avatarImg" onerror="this.src='https://placehold.co/180x180/1f2330/ff2a5f?text=Papa+Brando'">
+                    <h2>Brando Windah</h2>
+                    <p>Content Creator & Streamer</p>
+                    <div class="live-tag">
+                        <div class="live-pulse"></div>
+                        <span>LIVESTREAM READY</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROFIL / ABOUT SECTION -->
+    <section id="profil" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Profil & Biografi</h2>
+            <p class="section-subtitle">Perjalanan karir dari pekerja perhotelan hingga menjadi YouTube Creator nomor satu di Indonesia</p>
+
+            <div class="about-grid">
+                <div>
+                    <div class="about-box">
+                        <h3><i class="fa-solid fa-user-astronaut"></i> Tentang Brando Windah</h3>
+                        <p>
+                            Brando Windah (lahir 14 Maret 1992) adalah seorang YouTuber, streamer, dan kreator konten asal Manado, Indonesia. Dikenal dengan sebutan <strong>"Papa Brando"</strong> atau <strong>"Lord Windah"</strong>, beliau disukai oleh jutaan penonton karena gaya streaming-nya yang sangat menghibur, penuh drama teatrikal unik, serta kebaikan hatinya dalam beramal.
+                        </p>
+                    </div>
+                    <div class="about-box">
+                        <h3><i class="fa-solid fa-heart-circle-check"></i> Dampak Sosial & Charity</h3>
+                        <p>
+                            Windah Basudara terkenal sering menggelar <em>Charity Livestream</em> selama berjam-jam tanpa henti untuk membantu anak-anak yang membutuhkan pendidikan, korban bencana alam, hingga panti asuhan di seluruh pelosok Nusantara.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="about-box">
+                    <h3><i class="fa-solid fa-timeline"></i> Timeline Perjalanan Karir</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <span class="timeline-year">2018 - Awali Karir</span>
+                            <div class="timeline-title">Memulai Channel YouTube</div>
+                            <div class="timeline-desc">Memulai live streaming game dengan peralatan seadanya setelah resign dari pekerjaan sebelumnya.</div>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-year">2020 - Tembus 1 Juta</span>
+                            <div class="timeline-title">Lahirnya Komunitas "Bocil Kematian"</div>
+                            <div class="timeline-desc">Mencapai 1 Juta Subscribers dan membentuk julukan ikonik bagi para penggemar setianya.</div>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-year">2022 - Rekor Charity</span>
+                            <div class="timeline-title">Stream Amal Rp 1 Miliar</div>
+                            <div class="timeline-desc">Menggalang dana Rp 1 Miliar dalam waktu singkat untuk aksi kemanusiaan.</div>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-year">2023 - 10 Juta Diamond</span>
+                            <div class="timeline-title">Penghargaan Diamond Play Button</div>
+                            <div class="timeline-desc">Berhasil menembus 10 Juta Subscribers dan sempat melakukan rehat sejenak sebelum kembali streaming.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GAME & STREAM SHOWCASE -->
+    <section id="konten" class="section-padding" style="background: rgba(24, 27, 36, 0.5);">
+        <div class="container">
+            <h2 class="section-title">Game & Streaming Highlight</h2>
+            <p class="section-subtitle">Berbagai genre game favorit yang dimainkan dengan gokil dan dramatis</p>
+
+            <div class="games-grid">
+                <div class="game-card">
+                    <div class="game-thumb">
+                        <img src="Assets/img/foto%20windah%20horor.jpg" alt="Windah Basudara bermain game horror" class="game-thumb-image">
+                        <span class="game-overlay">Horror Night</span>
+                    </div>
+                    <div class="game-content">
+                        <h4>Game Horror Indonesia</h4>
+                        <p>DreadOut, Pamali, hingga game horror buatan developer lokal yang bikin kaget sekaligus ngakak!</p>
+                        <span class="badge">Scream & Drama</span>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <div class="game-thumb">
+                        <img src="Assets/img/windah%20san%20andreas.jpg" alt="Windah Basudara bermain GTA San Andreas" class="game-thumb-image">
+                        <span class="game-overlay">Nostalgia</span>
+                    </div>
+                    <div class="game-content">
+                        <h4>GTA San Andreas / PS2</h4>
+                        <p>Petualangan nostalgia game-game PS2 klasik favorit Bocil Kematian dengan mod kocak.</p>
+                        <span class="badge">Nostalgia Parade</span>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <div class="game-thumb">
+                        <img src="Assets/img/foto%20windah%20genshin.jpg" alt="Windah Basudara bermain Genshin Impact" class="game-thumb-image">
+                        <span class="game-overlay">Gacha Madness</span>
+                    </div>
+                    <div class="game-content">
+                        <h4>Gacha & Simulator Game</h4>
+                        <p>Momen ampas dan hoki gacha karakter anime & simulator usaha unik yang mengocok perut.</p>
+                        <span class="badge">Lord Gacha</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAN ZONE & INTERACTIVE MEMES -->
+    <section id="fanzone" class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Bocil Kematian Fan Zone</h2>
+            <p class="section-subtitle">Papan Suara Ikonik & Counter Komunitas Windah Basudara</p>
+
+            <div class="fanzone-container">
+                <h3 style="color: var(--accent-gold); text-align: center; margin-bottom: 1rem;">
+                    <i class="fa-solid fa-volume-high"></i> Soundboard Quotes Ikonik
+                </h3>
+                
+                <div class="soundboard-grid">
+                    <button class="sound-btn" onclick="playSound('haloGuys')">
+                        <i class="fa-solid fa-play"></i>
+                        <span>"Halo Guys!"</span>
+                    </button>
+                    <button class="sound-btn" onclick="playSound('bocilKematian')">
+                        <i class="fa-solid fa-play"></i>
+                        <span>"Bocil Kematian!"</span>
+                    </button>
+                    <button class="sound-btn" onclick="playSound('gachaHoki')">
+                        <i class="fa-solid fa-play"></i>
+                        <span>"Gacha Hoki!"</span>
+                    </button>
+                    <button class="sound-btn" onclick="playSound('pukulanRehat')">
+                        <i class="fa-solid fa-play"></i>
+                        <span>"Mana Gemoy?"</span>
+                    </button>
+                </div>
+
+                <div class="counter-box">
+                    <h4>Absen Kehadiran Bocil Kematian Hari Ini</h4>
+                    <div class="counter-number" id="bocilCount">9,999,999</div>
+                    <button class="btn btn-primary" onclick="addBocilCount()">
+                        <i class="fa-solid fa-hand-fist"></i> Tekan Untuk Absen Lord!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOKUMENTASI TUGAS INFORMATIKA (GIT & GITHUB PAGES) -->
+    <section id="dokumentasi" class="section-padding doc-section">
+        <div class="container">
+            <h2 class="section-title"><i class="fa-solid fa-book-bookmark"></i> Dokumentasi Wajib Tugas Informatika</h2>
+            <p class="section-subtitle">Catatan resmi alur pengerjaan project, struktur kode HTML/CSS, Git & GitHub Pages</p>
+
+            <div class="notebook-wrapper">
+                <div class="notebook-header">
+                    <div class="notebook-title">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <span>Buku Catatan Digital Informatika</span>
+                    </div>
+                    <span class="badge" style="background: rgba(255,184,0,0.2); color: var(--accent-gold); border-color: var(--accent-gold);">
+                        Siswa / Author: Tugas Portofolio Idola
+                    </span>
+                </div>
+
+                <!-- Navigation Tabs for Notebook Sections -->
+                <div class="doc-nav">
+                    <button class="doc-tab active" onclick="switchTab(event, 'tab-ide')">1. Ide & Tujuan</button>
+                    <button class="doc-tab" onclick="switchTab(event, 'tab-struktur')">2. Struktur Folder & HTML/CSS</button>
+                    <button class="doc-tab" onclick="switchTab(event, 'tab-git-init')">3. Git Init & Repo</button>
+                    <button class="doc-tab" onclick="switchTab(event, 'tab-workflow')">4. Workflow Add, Commit, Push</button>
+                    <button class="doc-tab" onclick="switchTab(event, 'tab-pages')">5. GitHub Pages</button>
+                    <button class="doc-tab" onclick="switchTab(event, 'tab-push-pull')">6. Push vs Pull</button>
+                    <button class="doc-tab" onclick="switchTab(event, 'tab-kendala')">7. Kendala & Refleksi</button>
+                </div>
+
+                <!-- TAB 1: IDE DAN TUJUAN -->
+                <div id="tab-ide" class="doc-content-pane active">
+                    <h3 class="entry-title"><i class="fa-solid fa-lightbulb"></i> 1. Ide dan Tujuan Website</h3>
+                    <div class="entry-body">
+                        <p><strong>Judul Project:</strong> Website Portofolio & Fanpage Windah Basudara</p>
+                        <p><strong>Deskripsi Ide:</strong> Website ini dibangun sebagai bentuk apresiasi kepada figur idola masyarakat Indonesia, yaitu <strong>Brando Windah (Windah Basudara)</strong>. Website menyajikan biografi, statistik pencapaian, highlight streaming game, serta interaktif soundboard fan zone.</p>
+                        <p><strong>Tujuan Pembuatan Website:</strong></p>
+                        <ul>
+                            <li>Memenuhi Tugas Mata Pelajaran Informatika bab Pengembangan Web & Version Control.</li>
+                            <li>Menerapkan pemahaman dasar HTML5 struktur semantic dan CSS Native styling.</li>
+                            <li>Melatih alur kerja profesional developer menggunakan Visual Studio Code, Git CLI, dan remote repository GitHub.</li>
+                            <li>Mempublikasikan karya web secara global secara gratis menggunakan GitHub Pages.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- TAB 2: STRUKTUR FOLDER -->
+                <div id="tab-struktur" class="doc-content-pane">
+                    <h3 class="entry-title"><i class="fa-solid fa-folder-tree"></i> 2. Struktur Folder & Kode (HTML & CSS External)</h3>
+                    <div class="entry-body">
+                        <p>Sesuai dengan praktek wajib, seluruh aset dan kode disusun secara terstruktur di folder project komputer:</p>
+                        
+                        <div class="tree-view">
+website-windah-basudara/
+├── assets/
+│   ├── images/
+│   │   ├── windah-avatar.jpg
+│   │   ├── banner.jpg
+│   │   └── game-thumbs/
+│   └── audio/
+│       └── meme-sounds/
+├── css/
+│   └── style.css       <-- CSS Native External
+├── index.html          <-- Halaman Utama (Beranda & Profil)
+├── about.html          <-- Halaman Detail Biografi terpisah
+├── games.html          <-- Halaman Daftar Game terpisah
+└── README.md           <-- Dokumentasi Project GitHub
+                        </div>
+
+                        <p><strong>Aturan Penyusunan Link Menu File HTML Terpisah:</strong></p>
+                        <p>Menu navigasi saling terhubung menggunakan tag anchor <code>&lt;a href="..."&gt;</code> ke halaman HTML terpisah dan menghubungkan CSS External menggunakan tag <code>&lt;link rel="stylesheet" href="css/style.css"&gt;</code> di dalam tag <code>&lt;head&gt;</code>.</p>
+                    </div>
+                </div>
+
+                <!-- TAB 3: REPOSITORY GITHUB -->
+                <div id="tab-git-init" class="doc-content-pane">
+                    <h3 class="entry-title"><i class="fa-solid fa-code-branch"></i> 3. Proses Membuat Repository & Menghubungkan Project</h3>
+                    <div class="entry-body">
+                        <p>Langkah-langkah membuat repository baru di GitHub dan menghubungkannya dengan project lokal di VS Code:</p>
+                        <ol>
+                            <li>Login ke akun GitHub (<a href="https://github.com" target="_blank" style="color: var(--accent-cyan);">github.com</a>).</li>
+                            <li>Klik tombol <strong>"New Repository"</strong> (atau ikon tanda tambah <code>+</code> di kanan atas).</li>
+                            <li>Beri nama repository: <code>website-windah-basudara</code>.</li>
+                            <li>Pilih opsi <strong>Public</strong> (agar bisa diaktifkan sebagai GitHub Pages).</li>
+                            <li>Jangan centang "Initialize with README" jika ingin mengunggah project dari folder komputer yang sudah ada.</li>
+                            <li>Klik <strong>Create repository</strong>.</li>
+                        </ol>
+
+                        <p><strong>Menghubungkan VS Code ke GitHub via Terminal:</strong></p>
+                        <div class="terminal-box">
+                            <div class="terminal-header">
+                                <span class="terminal-dot dot-red"></span>
+                                <span class="terminal-dot dot-yellow"></span>
+                                <span class="terminal-dot dot-green"></span>
+                                <span class="terminal-title">VS Code Integrated Terminal (Bash)</span>
+                            </div>
+                            <div class="terminal-body"><button class="copy-btn" onclick="copyCode(this)">Copy</button><span class="terminal-comment"># 1. Buka folder project di VS Code, lalu buka Integrated Terminal (Ctrl + ~)</span>
+<span class="terminal-cmd">git init</span>
+
+<span class="terminal-comment"># 2. Hubungkan repository lokal dengan URL repository remote GitHub</span>
+<span class="terminal-cmd">git remote add origin https://github.com/USERNAME_KAMU/website-windah-basudara.git</span>
+
+<span class="terminal-comment"># 3. Ubah nama branch utama menjadi 'main'</span>
+<span class="terminal-cmd">git branch -M main</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: WORKFLOW ADD, COMMIT, PUSH -->
+                <div id="tab-workflow" class="doc-content-pane">
+                    <h3 class="entry-title"><i class="fa-solid fa-arrows-rotate"></i> 4. Proses Wajib: Add → Commit → Push</h3>
+                    <div class="entry-body">
+                        <p>Siklus kerja wajib setiap kali ada perubahan kode pada Visual Studio Code:</p>
+                        
+                        <div class="terminal-box">
+                            <div class="terminal-header">
+                                <span class="terminal-dot dot-red"></span>
+                                <span class="terminal-dot dot-yellow"></span>
+                                <span class="terminal-dot dot-green"></span>
+                                <span class="terminal-title">Git Terminal Workflow</span>
+                            </div>
+                            <div class="terminal-body"><button class="copy-btn" onclick="copyCode(this)">Copy</button><span class="terminal-comment"># LOKASI: Terminal VS Code</span>
+
+<span class="terminal-comment"># Langkah A: Menambahkan seluruh file/perubahan baru ke Staging Area</span>
+<span class="terminal-cmd">git add .</span>
+
+<span class="terminal-comment"># Langkah B: Menyimpan snapshot perubahan beserta pesan deskriptif</span>
+<span class="terminal-cmd">git commit -m "feat: membuat tampilan portofolio windah basudara dan dokumentasi tugas"</span>
+
+<span class="terminal-comment"># Langkah C: Mengunggah/Push commit dari komputer lokal ke server GitHub</span>
+<span class="terminal-cmd">git push -u origin main</span></div>
+                        </div>
+
+                        <p><strong>Tahap Edit & Push Kembali (Re-Push):</strong></p>
+                        <p>Ketika melakukan revisi atau penambahan foto baru di kemudian hari:</p>
+                        <ol>
+                            <li>Buka dan edit file di VS Code.</li>
+                            <li>Jalankan lagi perintah: <code>git add .</code></li>
+                            <li>Jalankan commit baru: <code>git commit -m "fix: memperbarui galeri foto dan soundboard"</code></li>
+                            <li>Jalankan push: <code>git push</code></li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- TAB 5: GITHUB PAGES -->
+                <div id="tab-pages" class="doc-content-pane">
+                    <h3 class="entry-title"><i class="fa-solid fa-globe"></i> 5. Proses Memublikasikan dengan GitHub Pages</h3>
+                    <div class="entry-body">
+                        <p>Agar website dapat diakses oleh guru, teman, dan publik secara online:</p>
+                        <ol>
+                            <li>Buka repository <code>website-windah-basudara</code> di halaman GitHub web browser.</li>
+                            <li>Masuk ke tab menu <strong>Settings</strong> (ikon roda gigi di bagian atas).</li>
+                            <li>Pada sidebar sebelah kiri, cari dan klik menu <strong>Pages</strong>.</li>
+                            <li>Pada bagian <em>Build and deployment</em> -> <strong>Branch</strong>:
+                                <ul>
+                                    <li>Ubah dropdown dari <code>None</code> menjadi <code>main</code>.</li>
+                                    <li>Biarkan folder tetap <code>/(root)</code>.</li>
+                                </ul>
+                            </li>
+                            <li>Klik tombol <strong>Save</strong>.</li>
+                            <li>Tunggu 1–3 menit hingga muncul banner hijau bertuliskan: <br>
+                                <code style="color: var(--accent-cyan);">Your site is live at https://USERNAME_KAMU.github.io/website-windah-basudara/</code>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- TAB 6: PUSH VS PULL -->
+                <div id="tab-push-pull" class="doc-content-pane">
+                    <h3 class="entry-title"><i class="fa-solid fa-right-left"></i> 6. Penjelasan Konsep Push dan Pull</h3>
+                    <div class="entry-body">
+                        <p>Pemahaman inti mengenai pertukaran file dalam Git Version Control System:</p>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem;">
+                            <div style="background: rgba(255,42,95,0.1); border: 1px solid var(--accent-red); padding: 1.2rem; border-radius: 12px;">
+                                <h4 style="color: var(--accent-red); margin-bottom: 0.5rem;"><i class="fa-solid fa-cloud-arrow-up"></i> PUSH (Komputer → GitHub)</h4>
+                                <p style="font-size: 0.9rem;">
+                                    <strong>Definisi:</strong> Proses mengirimkan atau mengunggah <em>commit history</em> dan perubahan kode terbaru dari repository lokal (Komputer/VS Code) menuju ke remote repository (GitHub Server).
+                                </p>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Perintah CLI: <code>git push origin main</code></p>
+                            </div>
+
+                            <div style="background: rgba(0,240,255,0.1); border: 1px solid var(--accent-cyan); padding: 1.2rem; border-radius: 12px;">
+                                <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem;"><i class="fa-solid fa-cloud-arrow-down"></i> PULL (GitHub → Komputer)</h4>
+                                <p style="font-size: 0.9rem;">
+                                    <strong>Definisi:</strong> Proses mengambil dan menggabungkan (fetch + merge) perubahan kode terbaru dari remote repository (GitHub Server) ke repository lokal di komputer kita.
+                                </p>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Perintah CLI: <code>git pull origin main</code></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 7: KENDALA DAN REFLEKSI -->
+                <div id="tab-kendala" class="doc-content-pane">
+                    <h3 class="entry-title"><i class="fa-solid fa-triangle-exclamation"></i> 7. Kendala, Cara Mengatasi, & Refleksi</h3>
+                    <div class="entry-body">
+                        <p><strong>Kendala yang Ditemukan Selama Pengerjaan Project:</strong></p>
+                        <ul>
+                            <li><strong>Kendala 1:</strong> Gambar tidak muncul saat dipublikasikan di GitHub Pages.<br>
+                                <em>Solusi:</em> Memastikan penulisan path relatif (misal <code>assets/images/foto.jpg</code>) sudah benar dan memperhatikan huruf besar/kecil (case-sensitive) pada nama file di Linux server GitHub.
+                            </li>
+                            <li><strong>Kendala 2:</strong> Error autentikasi saat melakukan <code>git push</code> (Personal Access Token required).<br>
+                                <em>Solusi:</em> Membuat Personal Access Token (PAT) di setting akun GitHub atau melakukan login via VS Code GitHub Extension.
+                            </li>
+                            <li><strong>Kendala 3:</strong> Halaman GitHub Pages 404 Not Found.<br>
+                                <em>Solusi:</em> Memastikan file utama bernama persis <code>index.html</code> (huruf kecil semua) dan diletakkan di root folder project.
+                            </li>
+                        </ul>
+
+                        <p><strong>Kesimpulan & Refleksi Belajar:</strong></p>
+                        <p>
+                            Melalui pengerjaan tugas website portofolio Windah Basudara ini, saya berhasil memahami alur pembuat web modern mulai dari merancang desain visual dengan HTML & CSS Native hingga mengelola versi kode menggunakan Git. Fitur Version Control seperti Git sangat membantu pengembang untuk mencatat setiap perbaikan kode tanpa takut kehilangan pekerjaan sebelumnya.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-socials">
+                <a href="https://www.youtube.com/@WindahBasudara" target="_blank" class="social-icon" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://www.instagram.com/windahbasudara" target="_blank" class="social-icon" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://github.com" target="_blank" class="social-icon" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            </div>
+            <p class="footer-text">
+                Portofolio Fanmade Windah Basudara & Tugas Informatika Git/GitHub Pages &copy; 2026. Made with <i class="fa-solid fa-heart" style="color: var(--accent-red);"></i> for Bocil Kematian.
+            </p>
+        </div>
+    </footer>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="toast">Kode berhasil disalin!</div>
+
+    <!-- JAVASCRIPT CODE -->
+    <script>
+        // Responsive Mobile Navbar Toggle
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = navToggle.querySelector('i');
+            if(navMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close nav menu on link click
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                if(navToggle.querySelector('i')) {
+                    navToggle.querySelector('i').className = 'fa-solid fa-bars';
+                }
+            });
+        });
+
+        // Notebook Documentation Tab Switcher Function
+        function switchTab(evt, tabId) {
+            const tabs = document.querySelectorAll('.doc-tab');
+            const panes = document.querySelectorAll('.doc-content-pane');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            panes.forEach(pane => pane.classList.remove('active'));
+
+            evt.currentTarget.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Bocil Kematian Counter Logic
+        let bocilCount = 9999999;
+        function addBocilCount() {
+            bocilCount++;
+            const counterEl = document.getElementById('bocilCount');
+            counterEl.innerText = bocilCount.toLocaleString('id-ID');
+            showToast("Terima kasih sudah absen, Bocil Kematian!");
+            play8BitBeep(800, 0.1);
+        }
+
+        // Interactive Audio Synthesizer (Web Audio API - No external sound assets required)
+        function playSound(type) {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            if (type === 'haloGuys') {
+                showToast('"Halo Guys! Kembali lagi sama gue Windah Basudara!"');
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(440, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.3);
+                gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.3);
+            } else if (type === 'bocilKematian') {
+                showToast('"Bocil Kematian ASSEMBLE!"');
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(300, ctx.currentTime);
+                osc.frequency.linearRampToValueAtTime(600, ctx.currentTime + 0.4);
+                gain.gain.setValueAtTime(0.4, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.4);
+            } else if (type === 'gachaHoki') {
+                showToast('"RAJA GACHA HOKI INDONESIA!"');
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+                osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); // E5
+                osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2); // G5
+                osc.frequency.setValueAtTime(1046.50, ctx.currentTime + 0.3); // C6
+                gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.5);
+            } else if (type === 'pukulanRehat') {
+                showToast('"Mana Gemoy? Sini Kumpul Guys!"');
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(150, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(60, ctx.currentTime + 0.2);
+                gain.gain.setValueAtTime(0.5, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.2);
+            }
+        }
+
+        function play8BitBeep(freq, duration) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'square';
+                osc.frequency.value = freq;
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
+                osc.start();
+                osc.stop(ctx.currentTime + duration);
+            } catch(e) {
+                console.log(e);
+            }
+        }
+
+        // Helper Copy Function for Terminal Commands
+        function copyCode(btnElement) {
+            const terminalBody = btnElement.parentElement;
+            const textToCopy = terminalBody.innerText.replace('Copy', '').trim();
+            
+            // Clipboard fallback for iFrame / browser environment
+            const tempInput = document.createElement('textarea');
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            showToast("Perintah Git berhasil disalin!");
+        }
+
+        // Toast Notification System
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Active Link Highlight on Scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
